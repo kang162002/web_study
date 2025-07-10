@@ -7,22 +7,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>viewData5 페이지</h1>
+
+	<h1>ViewData1 페이지</h1>
+
+	<%=request.getAttribute("id")%>
+	<%=request.getAttribute("name")%>
+
 
 
 	<div>
 
-		<p>${store}</p>
-		<p>${menu}</p>
+		<p>${product.id}</p>
+		<p>${product.name}</p>
+		<p>${product.price}</p>
+
 	</div>
-
-<div>
-
-	<p>${product.id}</p>
-	<p>${product.name}</p>
-	<p>${product.price}</p>
-	
-</div>
 
 </body>
 </html>
