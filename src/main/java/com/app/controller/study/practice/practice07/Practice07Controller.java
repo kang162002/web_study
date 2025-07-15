@@ -3,12 +3,17 @@ package com.app.controller.study.practice.practice07;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.controller.dto.study.practice.practice07.Member;
 
+
+@Controller
+@RequestMapping("/practice07")
 public class Practice07Controller {
 
 	// 1. localhost:8080/practice07/listTest ?type=str 경로로 접근시
@@ -19,7 +24,7 @@ public class Practice07Controller {
 	public String listTest(@RequestParam String type, Model model) {
 
 		// str 반복 케이스
-		// 1) 그냥 jsp 내에서 고정 텍스트 반복
+		// 1) 그냥 jsp 내에서 wjs고정 텍스트 반복
 
 		// 2) 전달할 스트링(메시지) 전달하고 그걸 반복
 
@@ -82,4 +87,28 @@ public class Practice07Controller {
 		return "practice/practice07/listTest";
 
 	}
+	
+	
+	// practice09 번 문제 풀이를 위한 추가 코드
+	
+//	@GetMapping("/practice07/listTest/str")
+//	@GetMapping("/practice07/listTest/member")
+	@GetMapping("/practice07/listTest/{type}")
+	public String listtestAppend(@RequestParam String type, Model model) {
+		
+		
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
