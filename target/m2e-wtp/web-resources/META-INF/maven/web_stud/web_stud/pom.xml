@@ -67,5 +67,10 @@ https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 			<artifactId>SpringPrac2</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>QuzProject</groupId>
+			<artifactId>QuzProject</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
