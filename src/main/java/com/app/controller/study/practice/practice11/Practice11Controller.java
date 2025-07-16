@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Practice11Controller {
 
 	@GetMapping("/practice11/first")
-	public String first(Model model) {
+	public String first(Model model, HttpSession session) {
 
-		model.addAttribute("accessUrl", "/first");
+		if (session.getAttribute("accessUrl") == null) {
+			// model.addAttribute("accessUrl", "/firsthide3");
+			model.addAttribute("accessUrl", "/first");
+
+		} else {
+			model.addAttribute("accessUrl", session.getAttribute("accessUrl"));
+			// firsthide3
+			// firsthide4 /firsthide5
+
+			session.removeAttribute("accessUrl"); // 특정 키값으로 삭제
+			session.invalidate();// 세션클리어
+
+		}
 
 		return "practice/practice11/tagetPage";
-
 	}
 
 	@GetMapping("/practice11/firsthide1")
@@ -28,11 +39,32 @@ public class Practice11Controller {
 	}
 
 	@GetMapping("/practice11/firsthide2")
-	public String firsthide2(Model model) {
-		
-			
+	public String firsthide2(HttpSession session) {
+		session.setAttribute("accessUrl", "/first");
 //		model.addAttribute("accessUrl", "/first");
 		return "practice/practice11/first";
 	}
 
+	@GetMapping("/practice11/firsthide3")
+	public String firsthide3(Model model, HttpSession session) {
+
+		// model.addAttribute("accessUrl", "/firsthide3");
+		// firsthide3 에 접근했었다 라는 의미를 -> 전달 -> session 영역에 저장
+		session.setAttribute("accessUrl", "/firsthide3");
+
+		return "practice/practice11/first";
+	}
+
+//	
+//	 @GetMapping("/first")
+//	    public String firstWithSession(HttpSession session, Model model) {
+//	        Object accessUrl = session.getAttribute("accessUrl");
+//	        if (accessUrl != null) {
+//	            model.addAttribute("accessUrl", accessUrl.toString());
+//	            session.removeAttribute("accessUrl"); // 한번 사용 후 삭제
+//	        } else {
+//	            model.addAttribute("accessUrl", "/first");
+//	        }
+//	        return "practice/practice11//targetPage";
+//	    }
 }
