@@ -131,7 +131,7 @@ public class CustomerController {
 		System.out.println("비밀번호 변경에 사용할 user객체");
 		System.out.println(user);
 		
-		int result = userService.modifyUserPw(user);
+		int result = userService.modifyUser(user);
 	
 		if (result > 0) {
 			return "redirect:/customer/mypage";
