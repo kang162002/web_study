@@ -14,16 +14,19 @@
 		<label>호실번호<input type="text" name="roomNumber"></label><br>
 		<label>층수<input type="text" name="floor"></label><br>
 		<label>최대숙박인원<input type="text" name="maxGuestCount"></label><br>
-		
+
 		<h4>뷰타입</h4>
 		<select name="viewType">
 			<option value="OCN">오션뷰</option>
 			<option value="CTY">시티뷰</option>
 			<option value="MOT">마운틴뷰</option>
 		</select>
-		
+
 		<br>
 		<button type="submit">객실추가</button>
+		<div>
+			<button type="button" onClick="location.href='/admin/rooms'">객실 목록보기</button>
+		</div>
 	</form>
 </body>
 </html>

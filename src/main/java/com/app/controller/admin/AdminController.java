@@ -1,11 +1,15 @@
 package com.app.controller.admin;
 
+
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.dto.room.Room;
@@ -15,10 +19,10 @@ import com.app.service.user.UserService;
 
 @Controller
 public class AdminController {
-	
+
 	@Autowired
 	RoomService roomService;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -26,36 +30,61 @@ public class AdminController {
 	public String registerRoom() {
 		return "admin/registerRoom";
 	}
-	
+
 	@PostMapping("/admin/registerRoom")
 	public String registerRoomAction(Room room) {
-		
+
 		//값이 잘 넘어왔는가~
 		System.out.println(room.toString());
-		
+
 		//room 정보 등록
 		int result = roomService.saveRoom(room);
 		System.out.println(result);
-		
+
 		if(result > 0) { //정상적으로 저장 성공
 			return "redirect:/admin/rooms";	
 		} else { //저장 실패
 			return "admin/registerRoom";	
 		}		
 	}
-	
+
 	//관리자가 객실 관리하면서 객실 목록 확인
 	@GetMapping("/admin/rooms")
 	public String rooms(Model model) {
-		
+
 		//rooms 페이지에 보여줄 정보
 		// DB 에서 조회
 		List<Room> roomList = roomService.findRoomList();
-		
+
 		model.addAttribute("roomList", roomList);
-		
+
 		return "admin/rooms";		
 	}
+
+	//roomId 식별자로 구분해서, 하나의 객실에 대한 상세정보 페이지
+	@GetMapping("/admin/room/{roomId}")
+	public String room(@PathVariable String roomId, Model model) {
+
+		Room room = roomService.findRoomByRoomId(Integer.parseInt(roomId));
+		model.addAttribute("room", room);
+
+		return "admin/room";
+	}
+
+
+	// /admin/removeRoom?roomId=2
+	@GetMapping("/admin/removeRoom")
+	public String removeRoom(HttpServletRequest request) {
+		
+		String roomId = request.getParameter("roomId");
+		
+		int result = roomService.removeRoom(Integer.parseInt(roomId));
+		
+		//if(result > 0) 
+		
+		return "redirect:/admin/rooms";	
+	}
+	
 	
 	
 	//관리자가 사용자계정관리 -> 사용자 계정을 추가
@@ -64,12 +93,12 @@ public class AdminController {
 		//화면연결
 		return "admin/addUser";
 	}
-	
+
 	@PostMapping("/admin/users/add")
 	public String addUserAction(User user) {
-		
+
 		System.out.println(user);
-		
+
 		//관리자가 사용자 계정을 추가!!!
 		//사용자 계정이니까 userType "CUS" 여야 한다!! 전제조건! 로직!
 
@@ -79,38 +108,26 @@ public class AdminController {
 		//저장 처리 진행
 		int result = userService.saveUser(user);
 		*/
-		
+
 		//Customer 사용자 저장용 서비스 메소드 활용
 		int result = userService.saveCustomerUser(user);
-		
-		
+
+
 		if(result > 0 ) { //정상 저장 처리
 			return "redirect:/admin/users";
 		} else {
 			return "admin/addUser";	
 		}
 	}
-	
+
 	@GetMapping("/admin/users")
 	public String users(Model model) {
 		List<User> userList = userService.findUserList();
-		
+
 		model.addAttribute("userList", userList);
-		
+
 		return "admin/users";
 	}
-	
-	
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-

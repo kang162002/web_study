@@ -10,6 +10,3 @@ public class AccomodationController {
 	//업장관리자들이~ 접속 ~ 
 	//업장 운영 관련된 처리 ~ Controller
 }
-
-
-
