@@ -14,6 +14,24 @@
 	<button id="btn_registerRoom">객실 추가하기</button>
 	<br>
 	<br>
+
+	
+	<div>
+		<form action="" method="get">
+			<p>검색기준</p>
+			<label><input type="radio" name="viewType" value="OCN" <c:if test="${roomSearchCondition.viewType == 'OCN'}">checked</c:if> >오션뷰</label>
+			<label><input type="radio" name="viewType" value="CTY" <c:if test="${roomSearchCondition.viewType == 'CTY'}">checked</c:if>>시티뷰</label>
+			<label><input type="radio" name="viewType" value="MOT" <c:if test="${roomSearchCondition.viewType == 'MOT'}">checked</c:if>>마운틴뷰</label>
+			<br>
+			
+			<label>검색어 : <input type="text" name="searchKeyword" value="${roomSearchCondition.searchKeyword}"></label>
+			<button type="submit">검색</button>	
+		</form>
+		
+	</div>
+	
+	<hr>
+	
 	
 	<c:forEach var="room" items="${roomList}">
 
@@ -30,12 +48,13 @@
 
 <%-- 		<button type="button" onClick=" location.href='/admin/removeRoom?roomId=${room.roomId}'  ">삭제하기</button> --%>
 			<button type="button" onClick="removeRoom(${room.roomId})">삭제하기</button>
+			<button type="button" onClick="modifyRoom(${room.roomId})">수정하기</button>
 		</p>
 
 
 	</c:forEach>
 
-	
+
 	<script>
 		const btn_registerRoom = document.getElementById('btn_registerRoom');
 		btn_registerRoom.addEventListener('click', ()=>{
@@ -49,8 +68,11 @@
 			}
 		}
 		
+		function modifyRoom(roomId){
+			location.href = '/admin/modifyRoom?roomId=' + roomId;
+		}
+		
 	</script>
-	
-</body>
 
+</body>
 </html>
